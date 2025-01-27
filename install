@@ -1,0 +1,3 @@
+#!/bin/bash
+cargo build
+sudo cp -f target/debug/hydrosh /bin/hydrosh
