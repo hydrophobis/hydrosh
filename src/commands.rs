@@ -23,7 +23,7 @@ pub fn execute_command(cmd: &str, args: &[&str]){
 // }
 
 fn perm_cmd(args: &[&str]){
-    let mut arg;
+    let arg;
     match args[0] {
         "exec" => arg = "+x",
         "static" => arg = "-x",
@@ -37,7 +37,7 @@ fn perm_cmd(args: &[&str]){
 }
 
 fn if_cmd(args: &[&str]){
-    if (args[0] == "-h"){
+    if args[0] == "-h" {
         help::show_help(help::if_help);
         return;
     }
@@ -58,8 +58,8 @@ fn src_cmd(args: &[&str]){
 fn pkg_cmd(args: &[&str]){
     if args[0] == "install" {
         let mut cmd_args: Vec<&str> = Vec::new();
-        cmd_args.push("pacman");
-        cmd_args.push("-S");
+        cmd_args.push("hydropkg");
+        cmd_args.push("install");
         for arg in args {
             if arg != &"install"{
                 cmd_args.push(arg);
@@ -68,7 +68,7 @@ fn pkg_cmd(args: &[&str]){
         execute_command("sudo", &cmd_args);
     } else {
         for arg in args {
-            run_ext_cmd("whereis", &[arg]);
+            execute_command("whereis", &[arg]);
         }
     }
 }
@@ -84,7 +84,7 @@ fn cd_cmd(args: &[&str]) -> Result<(), String>{
 }
 
 fn cal_cmd(args: &[&str]){
-    cd_cmd(args);
+    let _ = cd_cmd(args);
     execute_command("ls", &[]);
 }
 
@@ -118,9 +118,9 @@ fn run_ext_cmd(cmd: &str, args: &[&str]){
 //     }
 // }
 
-fn check_len(args: &[&str], length: usize){
-    if args.len() < length {
-        eprintln!("missing arguments");
-        return;
-    }
-}
+// fn check_len(args: &[&str], length: usize){
+//     if args.len() < length {
+//         eprintln!("missing arguments");
+//         return;
+//     }
+// }
